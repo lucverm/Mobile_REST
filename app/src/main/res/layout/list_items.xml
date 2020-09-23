@@ -8,17 +8,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/id"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:textStyle="bold"
-            android:textSize="18sp"/>
-
-        <TextView
             android:id="@+id/nameListItems"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="5dp"
+            android:textSize="16sp"/>
     </LinearLayout>
 </LinearLayout>

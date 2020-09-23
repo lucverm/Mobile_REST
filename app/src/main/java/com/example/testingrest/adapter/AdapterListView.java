@@ -73,13 +73,8 @@ public class AdapterListView implements ListAdapter {
                 Intent i = new Intent(Intent.ACTION_VIEW);
             });
 
-            TextView id=convertView.findViewById(R.id.id);
             TextView name=convertView.findViewById(R.id.nameListItems);
-
-
-            id.setText(person.getId());
             name.setText(person.getName());
-
         }
         return convertView;
     }

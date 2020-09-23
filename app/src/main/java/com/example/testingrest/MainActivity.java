@@ -5,6 +5,7 @@ import com.example.testingrest.tabs.Tab1Fragment;
 import com.example.testingrest.tabs.Tab2Fragment;
 import com.example.testingrest.tabs.Tab3Fragment;
 import com.example.testingrest.adapter.SectionsPagerAdapter;
+import com.example.testingrest.tabs.Tab4Fragment;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new Tab1Fragment(),"GET");
         adapter.addFragment(new Tab2Fragment(),"POST");
         adapter.addFragment(new Tab3Fragment(),"DELETE");
+        adapter.addFragment(new Tab4Fragment(),"UPDATE");
         viewPager.setAdapter(adapter);
     }
 }
