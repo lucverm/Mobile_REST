@@ -6,6 +6,7 @@ import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -74,6 +75,12 @@ public class AdapterListView implements ListAdapter {
             });
 
             TextView name=convertView.findViewById(R.id.nameListItems);
+
+            LinearLayout linearLayout = convertView.findViewById(R.id.linear);
+
+            AdapterListViewPresenter presenter = new AdapterListViewPresenter();
+            presenter.setClickDelete(linearLayout,convertView);
+
             name.setText(person.getName());
         }
         return convertView;

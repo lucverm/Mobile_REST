@@ -1,11 +1,11 @@
 package com.example.testingrest;
 
 import android.os.Bundle;
-import com.example.testingrest.tabs.Tab1Fragment;
-import com.example.testingrest.tabs.Tab2Fragment;
-import com.example.testingrest.tabs.Tab3Fragment;
+import com.example.testingrest.tabs.GetFragment;
+import com.example.testingrest.tabs.PostFragment;
+import com.example.testingrest.tabs.DeleteFragment;
 import com.example.testingrest.adapter.SectionsPagerAdapter;
-import com.example.testingrest.tabs.Tab4Fragment;
+import com.example.testingrest.tabs.PutFragment;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,10 +30,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(),0);
-        adapter.addFragment(new Tab1Fragment(),"GET");
-        adapter.addFragment(new Tab2Fragment(),"POST");
-        adapter.addFragment(new Tab3Fragment(),"DELETE");
-        adapter.addFragment(new Tab4Fragment(),"UPDATE");
+        adapter.addFragment(new GetFragment(),"GET");
+        adapter.addFragment(new PostFragment(),"POST");
+        adapter.addFragment(new DeleteFragment(),"DELETE");
+        adapter.addFragment(new PutFragment(),"PUT");
         viewPager.setAdapter(adapter);
     }
 }
