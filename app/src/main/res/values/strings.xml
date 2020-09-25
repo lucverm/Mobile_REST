@@ -9,4 +9,7 @@
     <string name="delete">DELETE</string>
     <string name="load_items">Load items</string>
     <string name="touch_the_item_to_modify">Touch the item to modify</string>
+    <string name="server_status">Server status :</string>
+    <string name="server_ok">Server status : OK</string>
+    <string name="server_nok">Server status : NOK</string>
 </resources>
