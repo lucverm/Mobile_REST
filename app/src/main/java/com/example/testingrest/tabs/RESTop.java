@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -17,6 +18,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.testingrest.R;
 import com.example.testingrest.adapter.AdapterListViewDelete;
 import com.example.testingrest.adapter.AdapterListViewGet;
+import com.example.testingrest.adapter.AdapterListViewPut;
 import com.example.testingrest.model.Person;
 
 import org.json.JSONArray;
@@ -82,8 +84,6 @@ public class RESTop {
         final EditText name = view.findViewById(R.id.name);
         final Button buttonPost = view.findViewById(R.id.buttonPost);
 
-        final TextView message = view.findViewById(R.id.message);
-
         buttonPost.setOnClickListener(v -> {
             final JSONObject jsonObject = new JSONObject();
             try {
@@ -105,25 +105,33 @@ public class RESTop {
             };
 
             queue.add(jsonObjectRequest);
-            message.setText("POST a réussi avec succès !");
+            Toast.makeText(view.getContext(), "POST a réussi avec succès !", Toast.LENGTH_LONG).show();
             name.setText("");
         });
     }
 
     public static void PutRequest(View view){
         final Button btnTEST4 = view.findViewById(R.id.btnTEST4);
+        final ListView listOfPerson = view.findViewById(R.id.list_view2);
+        final List<Person> arrayList = new ArrayList<>();
 
         final RequestQueue queue = Volley.newRequestQueue(view.getContext());
 
         btnTEST4.setOnClickListener(v -> {
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT,url,null,
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                     response -> {
+                        List<String> jsonArrayToList = getValuesForGivenKey(response,"name");
+                        List<String> jsonArrayToListId = getValuesForGivenKey(response,"id");
 
+                        for(int i=0; i<jsonArrayToList.size();i++){
+                            arrayList.add(new Person(jsonArrayToListId.get(i),jsonArrayToList.get(i)));
+                        }
+                        AdapterListViewPut adapterListViewPut = new AdapterListViewPut(view.getContext(), arrayList);
+                        listOfPerson.setAdapter(adapterListViewPut);
                     },
                     error -> {
-                        System.out.println(error.getMessage());
                     });
-            queue.add(request);
+            queue.add(jsonArrayRequest);
         });
 
     }
