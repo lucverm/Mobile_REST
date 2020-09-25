@@ -4,12 +4,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -36,12 +34,13 @@ public class RESTop {
 
     public static void GetRequest(View view){
         final Button buttonGet = view.findViewById(R.id.buttonGet);
-        final ListView listOfPerson = view.findViewById(R.id.list_view);
         final List<Person> arrayList = new ArrayList<>();
+        final ListView listOfPerson = view.findViewById(R.id.list_view);
 
         final RequestQueue queue = Volley.newRequestQueue(view.getContext());
 
         buttonGet.setOnClickListener(v -> {
+            arrayList.clear();
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                     response -> {
                         List<String> jsonArrayToList = getValuesForGivenKey(response,"name");
@@ -56,10 +55,10 @@ public class RESTop {
                     error -> {
                     });
             queue.add(jsonArrayRequest);
+            Toast.makeText(view.getContext(), "GET successful !", Toast.LENGTH_LONG).show();
+
         });
     }
-
-
 
     private static List<String> getValuesForGivenKey(JSONArray jsonArray, String key) {
         List<String> jsonArrayToList = new ArrayList<String>();
@@ -105,7 +104,7 @@ public class RESTop {
             };
 
             queue.add(jsonObjectRequest);
-            Toast.makeText(view.getContext(), "POST a réussi avec succès !", Toast.LENGTH_LONG).show();
+            Toast.makeText(view.getContext(), "POST successful !", Toast.LENGTH_LONG).show();
             name.setText("");
         });
     }
@@ -118,6 +117,7 @@ public class RESTop {
         final RequestQueue queue = Volley.newRequestQueue(view.getContext());
 
         btnTEST4.setOnClickListener(v -> {
+            arrayList.clear();
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                     response -> {
                         List<String> jsonArrayToList = getValuesForGivenKey(response,"name");
@@ -132,6 +132,7 @@ public class RESTop {
                     error -> {
                     });
             queue.add(jsonArrayRequest);
+            Toast.makeText(view.getContext(), "Successful loading !", Toast.LENGTH_LONG).show();
         });
 
     }
@@ -144,6 +145,7 @@ public class RESTop {
         final RequestQueue queue = Volley.newRequestQueue(view.getContext());
 
         loadItems.setOnClickListener(v -> {
+            arrayList.clear();
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                     response -> {
                         List<String> jsonArrayToList = getValuesForGivenKey(response,"name");
@@ -158,6 +160,7 @@ public class RESTop {
                     error -> {
                     });
             queue.add(jsonArrayRequest);
+            Toast.makeText(view.getContext(), "Successful loading !", Toast.LENGTH_LONG).show();
         });
     }
 }

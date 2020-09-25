@@ -44,7 +44,7 @@ public class AdapterListViewPresenter {
                 Toast.makeText(view.getContext(), url+"/"+person.getId(), Toast.LENGTH_LONG).show();
 
             });
-            myPopup.setNegativeButton("NO", (dialog, which) -> Toast.makeText(view.getContext(),"It was not deleted",Toast.LENGTH_SHORT).show());
+            myPopup.setNegativeButton("NO", (dialog, which) -> Toast.makeText(view.getContext(),"DELETE successful !",Toast.LENGTH_SHORT).show());
 
             myPopup.show();
         });
@@ -57,14 +57,14 @@ public class AdapterListViewPresenter {
 
         linear.setOnClickListener(v->{
             AlertDialog.Builder myPopup = new AlertDialog.Builder(view.getContext());
-            myPopup.setView(R.layout.popup_put);
+            myPopup.setView(view);
             myPopup.setPositiveButton("CONFIRM", (dialog, which) -> {
 
                 final RequestQueue queue = Volley.newRequestQueue(view.getContext());
 
                 final JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("name", "TestNom");
+                    jsonObject.put("name", username.getText());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -78,11 +78,7 @@ public class AdapterListViewPresenter {
                         });
                 queue.add(request);
 
-                System.out.println("old name : " + person.getName());
-
-                System.out.println("new name : " +username.getText().toString());
-
-                Toast.makeText(view.getContext(), url+"/"+person.getId(), Toast.LENGTH_LONG).show();
+                Toast.makeText(view.getContext(), "PUT successful !", Toast.LENGTH_LONG).show();
 
             });
             myPopup.setNegativeButton("CANCEL", (dialog, which) -> Toast.makeText(view.getContext(),"",Toast.LENGTH_SHORT).show());

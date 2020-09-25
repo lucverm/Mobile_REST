@@ -8,4 +8,5 @@
     <string name="result_of_the_get_request">Result of the GET request</string>
     <string name="delete">DELETE</string>
     <string name="load_items">Load items</string>
+    <string name="touch_the_item_to_modify">Touch the item to modify</string>
 </resources>
