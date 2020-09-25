@@ -28,8 +28,7 @@ public class PutFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab4_fragment,container,false);
 
-        RESTop operation = new RESTop();
-        operation.PutRequest(view);
+        RESTop.PutRequest(view);
 
         return view;
     }

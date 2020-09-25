@@ -20,8 +20,7 @@ public class GetFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab1_fragment,container,false);
 
-        RESTop operation = new RESTop();
-        operation.GetRequest(view);
+        RESTop.GetRequest(view);
 
         return view;
     }

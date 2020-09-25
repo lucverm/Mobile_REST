@@ -18,8 +18,7 @@ public class DeleteFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab3_fragment,container,false);
 
-        RESTop resTop = new RESTop();
-        resTop.DeleteRequest(view);
+        RESTop.DeleteRequest(view);
 
         return view;
     }

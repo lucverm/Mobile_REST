@@ -15,7 +15,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.testingrest.R;
-import com.example.testingrest.adapter.AdapterListView;
+import com.example.testingrest.adapter.AdapterListViewDelete;
+import com.example.testingrest.adapter.AdapterListViewGet;
 import com.example.testingrest.model.Person;
 
 import org.json.JSONArray;
@@ -29,29 +30,26 @@ import java.util.Map;
 
 public class RESTop {
 
-    public String url ="http://51.210.148.199:8090/api/v1/person";
+    public static  String url ="http://51.210.148.199:8090/api/v1/person";
 
-    public void GetRequest(View view){
+    public static void GetRequest(View view){
         final Button buttonGet = view.findViewById(R.id.buttonGet);
         final ListView listOfPerson = view.findViewById(R.id.list_view);
         final List<Person> arrayList = new ArrayList<>();
 
-        setClickGet(buttonGet,arrayList,listOfPerson,view);
-    }
-
-    private void setClickGet(Button button,List<Person> arrayList,ListView listOfPerson,View view){
         final RequestQueue queue = Volley.newRequestQueue(view.getContext());
 
-        button.setOnClickListener(v -> {
+        buttonGet.setOnClickListener(v -> {
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                     response -> {
                         List<String> jsonArrayToList = getValuesForGivenKey(response,"name");
+                        List<String> jsonArrayToListId = getValuesForGivenKey(response,"id");
 
-                        for(String item : jsonArrayToList){
-                            arrayList.add(new Person("",item));
+                        for(int i=0; i<jsonArrayToList.size();i++){
+                            arrayList.add(new Person(jsonArrayToListId.get(i),jsonArrayToList.get(i)));
                         }
-                        AdapterListView adapterListView = new AdapterListView(view.getContext(), arrayList);
-                        listOfPerson.setAdapter(adapterListView);
+                        AdapterListViewGet adapterListViewGet = new AdapterListViewGet(view.getContext(), arrayList);
+                        listOfPerson.setAdapter(adapterListViewGet);
                     },
                     error -> {
                     });
@@ -59,7 +57,9 @@ public class RESTop {
         });
     }
 
-    private List<String> getValuesForGivenKey(JSONArray jsonArray, String key) {
+
+
+    private static List<String> getValuesForGivenKey(JSONArray jsonArray, String key) {
         List<String> jsonArrayToList = new ArrayList<String>();
         try
         {
@@ -76,7 +76,7 @@ public class RESTop {
         return jsonArrayToList;
     }
 
-    public void PostRequest(View view){
+    public static void PostRequest(View view){
         final RequestQueue queue = Volley.newRequestQueue(view.getContext());
 
         final EditText name = view.findViewById(R.id.name);
@@ -97,7 +97,7 @@ public class RESTop {
                     error -> System.out.println(error.getMessage())) {
                 @NonNull
                 @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
+                public Map<String, String> getHeaders() {
                     final Map<String, String> params = new HashMap<String, String>();
                     params.put("Content-Type", "application/json");
                     return params;
@@ -110,7 +110,7 @@ public class RESTop {
         });
     }
 
-    public void PutRequest(View view){
+    public static void PutRequest(View view){
         final Button btnTEST4 = view.findViewById(R.id.btnTEST4);
 
         final RequestQueue queue = Volley.newRequestQueue(view.getContext());
@@ -128,11 +128,28 @@ public class RESTop {
 
     }
 
-    public void DeleteRequest(View view){
+    public static void DeleteRequest(View view){
         final Button loadItems = view.findViewById(R.id.loadItems);
         final ListView listOfPerson = view.findViewById(R.id.list_view2);
         final List<Person> arrayList = new ArrayList<>();
 
-        setClickGet(loadItems,arrayList,listOfPerson,view);
+        final RequestQueue queue = Volley.newRequestQueue(view.getContext());
+
+        loadItems.setOnClickListener(v -> {
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                    response -> {
+                        List<String> jsonArrayToList = getValuesForGivenKey(response,"name");
+                        List<String> jsonArrayToListId = getValuesForGivenKey(response,"id");
+
+                        for(int i=0; i<jsonArrayToList.size();i++){
+                            arrayList.add(new Person(jsonArrayToListId.get(i),jsonArrayToList.get(i)));
+                        }
+                        AdapterListViewDelete adapterListViewDelete = new AdapterListViewDelete(view.getContext(), arrayList);
+                        listOfPerson.setAdapter(adapterListViewDelete);
+                    },
+                    error -> {
+                    });
+            queue.add(jsonArrayRequest);
+        });
     }
 }

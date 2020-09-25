@@ -6,7 +6,6 @@ import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -15,11 +14,11 @@ import com.example.testingrest.model.Person;
 
 import java.util.List;
 
-public class AdapterListView implements ListAdapter {
+public class AdapterListViewGet implements ListAdapter {
     private List<Person> personList;
     private Context context;
 
-    public AdapterListView(Context context, List<Person> personList) {
+    public AdapterListViewGet(Context context, List<Person> personList) {
         this.personList =personList;
         this.context=context;
     }
@@ -75,11 +74,6 @@ public class AdapterListView implements ListAdapter {
             });
 
             TextView name=convertView.findViewById(R.id.nameListItems);
-
-            LinearLayout linearLayout = convertView.findViewById(R.id.linear);
-
-            AdapterListViewPresenter presenter = new AdapterListViewPresenter();
-            presenter.setClickDelete(linearLayout,convertView);
 
             name.setText(person.getName());
         }

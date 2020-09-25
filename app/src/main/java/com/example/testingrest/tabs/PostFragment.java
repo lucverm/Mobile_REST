@@ -37,8 +37,7 @@ public class PostFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab2_fragment, container, false);
 
-        RESTop operation = new RESTop();
-        operation.PostRequest(view);
+        RESTop.PostRequest(view);
 
         return view;
     }
