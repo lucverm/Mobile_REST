@@ -4,17 +4,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.testingrest.Ping;
 import com.example.testingrest.R;
 import com.example.testingrest.adapter.AdapterListViewDelete;
 import com.example.testingrest.adapter.AdapterListViewGet;
@@ -22,11 +22,11 @@ import com.example.testingrest.adapter.AdapterListViewPut;
 import com.example.testingrest.model.JsonBuilder;
 import com.example.testingrest.model.Person;
 import com.example.testingrest.net.Connectiq;
+import com.example.testingrest.net.Ping;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,17 +48,23 @@ public class RESTop {
                 if(new Ping().execute().get()){
                     arrayList.clear();
                     JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, Connectiq.url, null,
-                            response -> {
-                                List<String> jsonArrayToList = getValuesForGivenKey(response, "name");
-                                List<String> jsonArrayToListId = getValuesForGivenKey(response, "id");
+                            new Response.Listener<JSONArray>() {
+                                @Override
+                                public void onResponse(JSONArray response) {
+                                    List<String> jsonArrayToList = getValuesForGivenKey(response, "name");
+                                    List<String> jsonArrayToListId = getValuesForGivenKey(response, "id");
 
-                                for (int i = 0; i < jsonArrayToList.size(); i++) {
-                                    arrayList.add(new Person(jsonArrayToListId.get(i), jsonArrayToList.get(i)));
+                                    for (int i = 0; i < jsonArrayToList.size(); i++) {
+                                        arrayList.add(new Person(jsonArrayToListId.get(i), jsonArrayToList.get(i)));
+                                    }
+                                    AdapterListViewGet adapterListViewGet = new AdapterListViewGet(view.getContext(), arrayList);
+                                    listOfPerson.setAdapter(adapterListViewGet);
                                 }
-                                AdapterListViewGet adapterListViewGet = new AdapterListViewGet(view.getContext(), arrayList);
-                                listOfPerson.setAdapter(adapterListViewGet);
                             },
-                            error -> {
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                }
                             });
                     queue.add(jsonArrayRequest);
                     Toast.makeText(view.getContext(), "GET successful !", Toast.LENGTH_LONG).show();
@@ -83,7 +89,12 @@ public class RESTop {
                 if(new Ping().execute().get()){
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Connectiq.url, JsonBuilder.buildJson(name.getText().toString()),
                             System.out::println,
-                            error -> System.out.println(error.getMessage())) {
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    System.out.println(error.getMessage());
+                                }
+                            }) {
                         @NonNull
                         @Override
                         public Map<String, String> getHeaders() {
@@ -117,17 +128,23 @@ public class RESTop {
                 if(new Ping().execute().get()){
                     arrayList.clear();
                     JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, Connectiq.url, null,
-                            response -> {
-                                List<String> jsonArrayToList = getValuesForGivenKey(response, "name");
-                                List<String> jsonArrayToListId = getValuesForGivenKey(response, "id");
+                            new Response.Listener<JSONArray>() {
+                                @Override
+                                public void onResponse(JSONArray response) {
+                                    List<String> jsonArrayToList = getValuesForGivenKey(response, "name");
+                                    List<String> jsonArrayToListId = getValuesForGivenKey(response, "id");
 
-                                for (int i = 0; i < jsonArrayToList.size(); i++) {
-                                    arrayList.add(new Person(jsonArrayToListId.get(i), jsonArrayToList.get(i)));
+                                    for (int i = 0; i < jsonArrayToList.size(); i++) {
+                                        arrayList.add(new Person(jsonArrayToListId.get(i), jsonArrayToList.get(i)));
+                                    }
+                                    AdapterListViewPut adapterListViewPut = new AdapterListViewPut(view.getContext(), arrayList);
+                                    listOfPerson.setAdapter(adapterListViewPut);
                                 }
-                                AdapterListViewPut adapterListViewPut = new AdapterListViewPut(view.getContext(), arrayList);
-                                listOfPerson.setAdapter(adapterListViewPut);
                             },
-                            error -> {
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                }
                             });
                     queue.add(jsonArrayRequest);
                     Toast.makeText(view.getContext(), "Successful loading !", Toast.LENGTH_LONG).show();
@@ -152,17 +169,23 @@ public class RESTop {
                 if(new Ping().execute().get()){
                     arrayList.clear();
                     JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, Connectiq.url, null,
-                            response -> {
-                                List<String> jsonArrayToList = getValuesForGivenKey(response, "name");
-                                List<String> jsonArrayToListId = getValuesForGivenKey(response, "id");
+                            new Response.Listener<JSONArray>() {
+                                @Override
+                                public void onResponse(JSONArray response) {
+                                    List<String> jsonArrayToList = getValuesForGivenKey(response, "name");
+                                    List<String> jsonArrayToListId = getValuesForGivenKey(response, "id");
 
-                                for (int i = 0; i < jsonArrayToList.size(); i++) {
-                                    arrayList.add(new Person(jsonArrayToListId.get(i), jsonArrayToList.get(i)));
+                                    for (int i = 0; i < jsonArrayToList.size(); i++) {
+                                        arrayList.add(new Person(jsonArrayToListId.get(i), jsonArrayToList.get(i)));
+                                    }
+                                    AdapterListViewDelete adapterListViewDelete = new AdapterListViewDelete(view.getContext(), arrayList);
+                                    listOfPerson.setAdapter(adapterListViewDelete);
                                 }
-                                AdapterListViewDelete adapterListViewDelete = new AdapterListViewDelete(view.getContext(), arrayList);
-                                listOfPerson.setAdapter(adapterListViewDelete);
                             },
-                            error -> {
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                }
                             });
                     queue.add(jsonArrayRequest);
                     Toast.makeText(view.getContext(), "Successful loading !", Toast.LENGTH_LONG).show();

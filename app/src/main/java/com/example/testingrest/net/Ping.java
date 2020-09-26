@@ -1,8 +1,6 @@
-package com.example.testingrest;
+package com.example.testingrest.net;
 
 import android.os.AsyncTask;
-
-import com.example.testingrest.net.Connectiq;
 
 import java.io.IOException;
 import java.net.InetAddress;
