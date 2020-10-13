@@ -1,26 +1,25 @@
-package com.example.testingrest.tabs;
+package com.example.testingrest.view.tabs;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
+import com.example.testingrest.api.PutRequest;
 import com.example.testingrest.R;
 
-public class DeleteFragment extends Fragment {
+public class PutFragment extends Fragment {
 
-    private static final String TAG = "DeleteFragment";
+    private static final String TAG = "PutFragment";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.delete_fragment, container, false);
+        View view = inflater.inflate(R.layout.put_fragment, container, false);
 
-        RESTop.DeleteRequest(view);
+        PutRequest.of(view);
 
         return view;
     }

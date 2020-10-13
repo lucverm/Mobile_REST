@@ -1,4 +1,4 @@
-package com.example.testingrest;
+package com.example.testingrest.view;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,13 +8,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.testingrest.R;
 import com.example.testingrest.adapter.SectionsPagerAdapter;
 import com.example.testingrest.net.Connectiq;
 import com.example.testingrest.net.Ping;
-import com.example.testingrest.tabs.DeleteFragment;
-import com.example.testingrest.tabs.GetFragment;
-import com.example.testingrest.tabs.PostFragment;
-import com.example.testingrest.tabs.PutFragment;
+import com.example.testingrest.view.tabs.DeleteFragment;
+import com.example.testingrest.view.tabs.GetFragment;
+import com.example.testingrest.view.tabs.PostFragment;
+import com.example.testingrest.view.tabs.PutFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.io.BufferedInputStream;
